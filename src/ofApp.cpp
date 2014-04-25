@@ -22,7 +22,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
+    // added!
     fbo.begin();
     image.draw(0, 0);
     //    ofBackground(0);
