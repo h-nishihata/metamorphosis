@@ -1,50 +1,58 @@
 #include "ofApp.h"
-int r;
-int g;
-int b;
-int x = 0;
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RG8);
-    processFbo.allocate(ofGetWidth(), ofGetHeight());
+    fbo.allocate(1440, 713);
+    processFbo.allocate(1440, 713);
     image.loadImage("collection_12.jpg");
+    pixels = image.getPixels();
+    for (int i=0; i<NUM; i++) {
+        pos = pens[i].centy * image.width + pens[i].centx;
+        red = pixels[pos *3];
+        green = pixels[pos *3 +1];
+        blue =  pixels[pos *3 +2];
+        pens[i].setR(red);
+        pens[i].setG(green);
+        pens[i].setB(blue);
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
     for (int i=0; i<NUM; i++) {
+
         pens[i].update();
     }
-    x++;
+
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    // added!
+    
+
+    
     fbo.begin();
-    image.draw(0, 0);
-    //    ofBackground(0);
-    unsigned char* pixels = image.getPixels();
-    int pos = 400*image.width+400;
-    r = pixels[pos*3];
-    g = pixels[pos*3+1];
-    b = pixels[pos*3+2];
-    processFbo.draw(0, 0);
-    
-    
+            image.draw(0, 0, 850, 422);
+            //    ofEnableAlphaBlending();
+            //    ofBackground(0,0,0,0);
+            processFbo.draw(0, 0);
     fbo.end();
     
+    
+    
     processFbo.begin();
-//    ofSetColor(r,g,b);
-//    ofEllipse(x, 50, 100, 100);
-    for (int i=0; i<NUM; i++) {
-        pens[i].draw();
-    }
+            for (int i=0; i<NUM; i++) {
+                pens[i].draw();
+            }
     processFbo.end();
     
+    
+    
+    ofSetHexColor(0xffffff);
     fbo.draw(0,0);
+    
 }
 
 //--------------------------------------------------------------
