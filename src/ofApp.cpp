@@ -3,11 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    fbo.allocate(1440, 713);
+    fbo.allocate(1440, 713, GL_RGB);
     processFbo.allocate(1440, 713);
+    
     image.loadImage("collection_12.jpg");
     pixels = image.getPixels();
+    
     for (int i=0; i<NUM; i++) {
+        
         pos = pens[i].centy * image.width + pens[i].centx;
         red = pixels[pos *3];
         green = pixels[pos *3 +1];
@@ -15,14 +18,16 @@ void ofApp::setup(){
         pens[i].setR(red);
         pens[i].setG(green);
         pens[i].setB(blue);
+        
     }
+    
+    ofSetFrameRate(10);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
     for (int i=0; i<NUM; i++) {
-
         pens[i].update();
     }
 
@@ -30,9 +35,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
-
-    
+   
     fbo.begin();
             image.draw(0, 0, 850, 422);
             //    ofEnableAlphaBlending();

@@ -5,7 +5,6 @@
 
 #define NUM 100
 
-
 class ofApp : public ofBaseApp{
 public:
     

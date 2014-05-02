@@ -3,37 +3,19 @@
 pen::pen(){
     
     centx = ofRandom(0,850);
-    centy = ofRandom(0,850);
- 
-    radius = ofRandom(5,15);
-    rotate = ofRandom(-5,5);
+    centy = ofRandom(0,422);
+    radius = ofRandom(5,20);
+    rotate = ofRandom(-5,10);
     lastx = -999;
     lasty = -999;
+    
     radiusNoise = ofRandom(10);
+    spiral = ofRandom(1.5);
     waitCnt = ofRandom(0, 100);
     step = 0;
-    spiral = ofRandom(-0.5,0.5);
-    
     
 }
 
-//--------------------------------------------------------------
-//pen::pen(int centX, int centY){
-//    
-//    centx = ofRandom(0,850);
-//    centy = ofRandom(0,850);
-//    
-//    radius = ofRandom(5,15);
-//    rotate = ofRandom(-5,5);
-//    lastx = -999;
-//    lasty = -999;
-//    radiusNoise = ofRandom(10);
-//    waitCnt = ofRandom(1,100);
-//    step = 0;
-//    spiral = ofRandom(-0.5,0.5);
-//
-//    
-//}
 //--------------------------------------------------------------
 void pen::setR(int red){
     r = red;
@@ -59,9 +41,7 @@ void pen::update(){
 }
 //--------------------------------------------------------------
 void pen::draw(){
-    
 
-    
     ofEnableAlphaBlending();
 
     if (step < waitCnt) {
@@ -69,7 +49,7 @@ void pen::draw(){
     }
     else {
         
-        float thisRadius = radius + (ofNoise(radiusNoise) * 200) - 100;
+        float thisRadius = radius + ofRandom(ofNoise(radiusNoise) * 50) - 25;
         
         
         if ((ang < 360*5) || (ang > -360*5) ) {
@@ -79,7 +59,7 @@ void pen::draw(){
             
             if (lastx > -999) {
                 ofSetColor(r,g,b);
-                ofSetLineWidth(ofRandom(1,8));
+                ofSetLineWidth(5);
                 ofLine(x, y, lastx, lasty);
             }
             
