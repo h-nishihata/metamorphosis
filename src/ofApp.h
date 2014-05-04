@@ -1,9 +1,10 @@
 
 #pragma once
 #include "ofMain.h"
-#include "pen.h"
-
-#define NUM 100
+#include "ofxLayer.h"
+#include "TestLayer1.h"
+#include "TestLayer2.h"
+#include "TestLayer3.h"
 
 class ofApp : public ofBaseApp{
 public:
@@ -22,16 +23,10 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    unsigned char* pixels;
-    int pos;
-    int red;
-    int green;
-    int blue;
+    TestLayer1 *layer1;
+    TestLayer2 *layer2;
+    TestLayer3 *layer3;
     
-    ofFbo fbo;
-    ofFbo processFbo;
-    ofImage image;
-    
-    pen pens[NUM];
+    ofxLayer::Manager mng;
     
 };

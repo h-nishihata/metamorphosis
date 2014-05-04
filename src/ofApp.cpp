@@ -3,58 +3,39 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    fbo.allocate(1440, 713, GL_RGB);
-    processFbo.allocate(1440, 713);
+    ofEnableAlphaBlending();
+    ofSetVerticalSync(true);
+    ofBackground(30);
     
-    image.loadImage("collection_12.jpg");
-    pixels = image.getPixels();
+    mng.setup(1440,900);
     
-    for (int i=0; i<NUM; i++) {
-        
-        pos = pens[i].centy * image.width + pens[i].centx;
-        red = pixels[pos *3];
-        green = pixels[pos *3 +1];
-        blue =  pixels[pos *3 +2];
-        pens[i].setR(red);
-        pens[i].setG(green);
-        pens[i].setB(blue);
-        
-    }
+    layer1 = mng.createLayer<TestLayer1>();
+    layer2 = mng.createLayer<TestLayer2>();
+    layer3 = mng.createLayer<TestLayer3>();
     
-    ofSetFrameRate(10);
+    layer1->setVisible(true);
+    layer1->setAlpha(255);
+    
+    layer2->setVisible(true);
+    layer2->setAlpha(255);
+    
+    layer3->setVisible(true);
+    layer3->setAlpha(255);
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    for (int i=0; i<NUM; i++) {
-        pens[i].update();
-    }
-
+    mng.update();
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-   
-    fbo.begin();
-            image.draw(0, 0, 850, 422);
-            //    ofEnableAlphaBlending();
-            //    ofBackground(0,0,0,0);
-            processFbo.draw(0, 0);
-    fbo.end();
     
-    
-    
-    processFbo.begin();
-            for (int i=0; i<NUM; i++) {
-                pens[i].draw();
-            }
-    processFbo.end();
-    
-    
-    
-    ofSetHexColor(0xffffff);
-    fbo.draw(0,0);
+    ofEnableAlphaBlending();
+    mng.draw();
     
 }
 
