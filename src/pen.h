@@ -11,18 +11,24 @@ public:
     int radius;
     int ang;
     int rotate;
-    int radiusNoise;
-    int spiral;
     float x, y;
     int lastx, lasty;
+    
+    float radiusNoise;
+    float spiral;
     int waitCnt;
     int step;
 
     int r;
     int g;
     int b;
+    float col;
+    bool flag;
     int a;
     int waiting;
+    int sw;
+    int speedX;
+    int speedY;
     
     pen();
     void setup();
