@@ -10,10 +10,9 @@ void TestLayer1::draw(){
     ofTranslate(0, 900);
     ofRotateX(180);
 
-    ofEnableAlphaBlending();
-    ofBackground(0, 0, 0, 0);
-    
-//    ofSetColor(0,0,0,0);
+//    ofBackground(255, 0, 0);
+//    
+//    ofSetColor(0, 0, 0, 0);
 //    
 //    ofBeginShape();
 //    ofVertex(10, 40);
