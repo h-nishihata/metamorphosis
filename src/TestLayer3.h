@@ -1,5 +1,4 @@
 #include "ofMain.h"
-
 #include "ofxLayer.h"
 
 #define OFX_LAYER_DEFINE_LAYER_CLASS(Klass) public: const char* getClassName() const { return #Klass; } \
@@ -16,6 +15,11 @@ public:
     void update();
     void draw();
   
+    float x;
+    float y;
+    float speedX;
+    float speedY;
+
     ofImage img;
     
 };

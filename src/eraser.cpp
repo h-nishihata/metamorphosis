@@ -1,6 +1,6 @@
-#include "pen.h"
+#include "eraser.h"
 
-pen::pen(){
+eraser::eraser(){
     
     centx = ofNoise(ofRandom(10)) * 1340 + 100;
     centy = ofNoise(ofRandom(10)) * 800 + 100;
@@ -19,40 +19,41 @@ pen::pen(){
     waitCnt = ofRandom(0, 300);
     step = 0;
     
-    col = ofRandom(5);
     a = ofRandom(0, 255);
     waiting = ofRandom(0,80);
     sw = (int)ofRandom(1,8);
+    
     speedX = ofRandom(-2,2);
     speedY = ofRandom(-2,2);
-
+    
 }
+/*
 //--------------------------------------------------------------
-void pen::setup(){
+void eraser::setup(){
     
 }
 //--------------------------------------------------------------
-void pen::setR(int red){
+void eraser::setR(int red){
     r = red;
 }
 
 //--------------------------------------------------------------
-void pen::setG(int green){
+void eraser::setG(int green){
     g = green;
 }
 
 //--------------------------------------------------------------
-void pen::setB(int blue){
+void eraser::setB(int blue){
     b = blue;
 }
-
+*/
 //--------------------------------------------------------------
-void pen::update(){
-
+void eraser::update(){
+    
     ang += rotate;
     radius += spiral;
     radiusNoise += ofRandom(-0.05, 0.1);
-    
+/*
     if (flag_r == false) {
         r += 0.1;
         if (r >= 255) {
@@ -90,7 +91,7 @@ void pen::update(){
             flag_b = false;
         }
     }
-    
+*/    
     
     centx += speedX;
     centy += speedY;
@@ -103,7 +104,7 @@ void pen::update(){
     
 }
 //--------------------------------------------------------------
-void pen::draw(){
+void eraser::draw(){
     
     ofEnableSmoothing();
     ofEnableAlphaBlending();
@@ -126,16 +127,7 @@ void pen::draw(){
             x = centx + (thisRadius * cos(ang*3.141592/180));
             y = centy + (thisRadius * sin(ang*3.141592/180));
             if (lastx > -999) {
-                if (col == 0) {
-                    ofSetColor(225, 88, 52, a);
-                }else if (col == 1){
-                    ofSetColor(127, 164, 94, a);
-                }else if (col == 2){
-                    ofSetColor(239, 243, 193);
-                }
-                else{
-                ofSetColor(r, g, b, a);
-                }
+                ofSetColor(211, 204, 97, a);
                 ofSetLineWidth(sw);
                 ofLine(x, y, lastx, lasty);
             }

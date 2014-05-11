@@ -1,9 +1,9 @@
-#ifndef _OF_PEN
-#define _OF_PEN
+#ifndef _OF_ERASER
+#define _OF_ERASER
 
 #include "ofMain.h"
 
-class pen{
+class eraser{
     
 public:
     
@@ -19,27 +19,26 @@ public:
     int waitCnt;
     int step;
     
-    float r;
-    float g;
-    float b;
+    //    float r;
+    //    float g;
+    //    float b;
     //    float col;
-    bool flag_r;
-    bool flag_g;
-    bool flag_b;
-    int col;
+    //    bool flag_r;
+    //    bool flag_g;
+    //    bool flag_b;
     int a;
     int waiting;
     int sw;
     int speedX;
     int speedY;
     
-    pen();
+    eraser();
     void setup();
     void update();
     void draw();
-    void setR(int red);
-    void setG(int green);
-    void setB(int blue);
+    //    void setR(int red);
+    //    void setG(int green);
+    //    void setB(int blue);
     
 };
 

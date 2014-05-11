@@ -2,20 +2,35 @@
 
 //--------------------------------------------------------------------------------------------------------------
 void TestLayer3::setup(){
-    
-    img.loadImage("taikan.jpg");
+
+    img.loadImage("kohrin.jpg");
+    x = -10;
+    y = -10;
+    speedX = 0.13;
+    speedY = 0.2;
     
 }
 //--------------------------------------------------------------------------------------------------------------
 void TestLayer3::update(){
-
+    
+    x += speedX;
+    y += speedY;
+    
+    if (x >= 0 || x <= -674) {
+        speedX = speedX*-1;
+    }
+    if (y >= 0 || y <= -36) {
+        speedY = speedY*-1;
+    }
+    
 }
 //--------------------------------------------------------------------------------------------------------------
 void TestLayer3::draw(){
 
     ofEnableAlphaBlending();
-    ofBackground(0,0,0,0);
+    ofBackground(255,255,255,0);
     
-    img.draw(0, 0, ofGetWidth(), ofGetHeight());
+//    ofSetColor(200, 180, 100, 255);
+    img.draw(x, y, 2117, 950);
     
 }
