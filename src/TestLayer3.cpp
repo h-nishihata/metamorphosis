@@ -3,11 +3,11 @@
 //--------------------------------------------------------------------------------------------------------------
 void TestLayer3::setup(){
 
-    img.loadImage("kohrin.jpg");
+    img.loadImage("ikuo.jpg");
     x = -10;
     y = -10;
-    speedX = 0.13;
-    speedY = 0.2;
+    speedX = 0.1;
+    speedY = 0.1;
     
 }
 //--------------------------------------------------------------------------------------------------------------
@@ -16,10 +16,10 @@ void TestLayer3::update(){
     x += speedX;
     y += speedY;
     
-    if (x >= 0 || x <= -674) {
+    if (x >= 0 || x <= -550) {
         speedX = speedX*-1;
     }
-    if (y >= 0 || y <= -36) {
+    if (y >= 0 || y <= -50) {
         speedY = speedY*-1;
     }
     
@@ -30,7 +30,7 @@ void TestLayer3::draw(){
     ofEnableAlphaBlending();
     ofBackground(255,255,255,0);
     
-//    ofSetColor(200, 180, 100, 255);
-    img.draw(x, y, 2117, 950);
+    ofSetColor(245,229,171);
+    img.draw(x, y, 1990, 950);
     
 }

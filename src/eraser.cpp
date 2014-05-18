@@ -95,7 +95,7 @@ void eraser::update(){
     
     centx += speedX;
     centy += speedY;
-    if (centx >= 2117 || centx <= 0) {
+    if (centx >= 1990 || centx <= 0) {
         speedX = speedX*-1;
     }
     if (centy >= 950 || centy <= 0) {
@@ -127,6 +127,7 @@ void eraser::draw(){
             x = centx + (thisRadius * cos(ang*3.141592/180));
             y = centy + (thisRadius * sin(ang*3.141592/180));
             if (lastx > -999) {
+                ofNoFill();
                 ofSetColor(211, 204, 97, a);
                 ofSetLineWidth(sw);
                 ofLine(x, y, lastx, lasty);

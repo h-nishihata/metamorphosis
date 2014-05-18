@@ -11,9 +11,8 @@ void TestLayer1::draw(){
     ofRotateX(180);
 
 //    ofBackground(255, 0, 0);
-//    
-//    ofSetColor(0, 0, 0, 0);
-//    
+//    ofSetColor(255, 0, 0);
+//    ofCircle(500, 500, 500);
 //    ofBeginShape();
 //    ofVertex(10, 40);
 //    ofVertex(ofGetWidth()-10, 40);
