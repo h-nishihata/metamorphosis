@@ -5,32 +5,22 @@ pen::pen(){
     centx = ofRandom(1440);
     centy = ofRandom(900);
     radius = ofRandom(0, 200);
-    rotate = ofRandom(-3, 3);
+    rotate = ofRandom(-1.5, 1.5);
     
     if (rotate == 0) {
         rotate = 1;
     }
     
-    lastx = -999;
-    lasty = -999;
-    
     radiusNoise = ofRandom(10);
-    //    spiral = ofRandom(-0.5, 0.5);
     waitCnt = ofRandom(0, 100);
     step = 0;
     
     sw = ofRandom(5,8);
-    col = ofRandom(20);
     a = ofRandom(0, 255);
     waiting = ofRandom(0,80);
     
     speedX = ofRandom(-3,3);
     speedY = ofRandom(-2,2);
-    
-    centx_ = ofRandom(1440);
-    centy_ = ofRandom(900);
-    radius_ = ofRandom(20);
-    noiseVal = ofRandom(10);
     
 }
 
@@ -55,26 +45,28 @@ void pen::setB(int blue){
 }
 
 //--------------------------------------------------------------
+void pen::setID(int identify){
+    ID = identify;
+}
+
+//--------------------------------------------------------------
 void pen::update(){
     
-    ang += rotate;
-    radiusNoise += ofRandom(-0.05, 0.05);
-    radius += ofRandom(-0.5, 0.5);
+    //  *****   color    *****
     
-    
-    if (flag_r == false) {
+    if (flag_c == false) {
         r += 0.1;
         g += 0.1;
         b += 0.1;
         if (r >= 255 || g >= 255 || b >= 255) {
-            flag_r = true;
+            flag_c = true;
         }
-    }else if(flag_r == true){
+    }else if(flag_c == true){
         r -= 0.1;
         g -= 0.1;
         b -= 0.1;
         if (r <= 0 || g <= 0 || b <= 0) {
-            flag_r = false;
+            flag_c = false;
         }
     }
     
@@ -85,31 +77,89 @@ void pen::update(){
     }
     
     
+    //  *****   radius    *****
+    
+    ang += rotate;
+    radiusNoise += ofRandom(-0.05, 0.05);
+    radius += ofRandom(-0.5, 0.5);
     
     if (radiusNoise >= 5) {
         radiusNoise = 0;
     }
     
     
-    if(radius >= 500){
-        spiral = -spiral;
-    }else if (radius <= 0){
-        spiral = -spiral;
-    }
-    
-    
-    if(noiseVal >= 20){
-        noiseVal = ofRandom(10);
-    }
-    
+    //  *****   add velocity to position    *****
     
     centx += speedX;
     centy += speedY;
-    if (centx >= 1990 || centx <= 0) {
-        speedX = speedX*-1;
+    if (centx >= 1440 || centx <= 0) {
+        centx = ofRandom(1440);
     }
-    if (centy >= 950 || centy <= 0) {
-        speedY = speedY*-1;
+    if (centy >= 900 || centy <= 0) {
+        centy = ofRandom(900);
+    }
+    
+    float ax = 0.0;
+    float ay = 0.0;
+    int lencon = ofRandom(50)+10;
+    
+    for (int n=0; n<10; n++) {
+        
+        float ddx = this[n].centx-centx;
+        float ddy = this[n].centy-centy;
+        float d = sqrt(ddx*ddx + ddy*ddy);
+        float t = atan2(ddy,ddx);
+        
+        if (this[n].ID > ID) {
+            
+            if (d>lencon) {
+                ax += 10.0 * cos(t);
+                ay += 10.0 * sin(t);
+            }
+        } else {
+            
+            if (d<lencon) {
+                ax += (lencon-d)/10 * cos(t+PI);
+                ay += (lencon-d)/10 * sin(t+PI);
+            }
+        }
+        
+    }
+    
+    
+    if (flag_t == false) {
+        
+        speedX += ax/500; //500
+        speedY += ay/500;
+        if(time > 300){
+            flag_t = true;
+        }
+        
+    }else if (flag_t == true){
+        
+        speedX -= ax/500; //500
+        speedY -= ay/500;
+        if(time > 800){
+            flag_t = false;
+            time = 0;
+        }
+        
+    }
+    
+    speedX *= 0.95;
+    speedY *= 0.95;
+    
+    if (speedX == speedY) {
+        speedX += ofRandom(-0.1, 0.1);
+        speedY += ofRandom(-0.1, 0.1);
+    }
+    
+    if (speedX == 0) {
+        speedX = ofRandom(-0.1, 0.1);
+    }
+    
+    if (speedY == 0) {
+        speedY = ofRandom(-0.1, 0.1);
     }
     
 }
@@ -121,56 +171,20 @@ void pen::draw(){
     ofEnableAlphaBlending();
     
     
-    if (step < waitCnt) {
-        step++;
-    }
-    else {
+    float thisRadius = radius + (ofNoise(radiusNoise) * 200) -100;
+    
+    
+    if ((ang >= 0 && ang < 360) || (ang <= 0 && ang > -360) ) {
         
-        float thisRadius = radius + (ofNoise(radiusNoise) * 200) -100;
+        x = centx + (thisRadius * cos(ang*3.1415926/180));
+        y = centy + (thisRadius * sin(ang*3.1415926/180));
         
+        ofSetColor(r, g, b);
+        ofCircle(x, y, 1);
         
-        if ((ang >= 0 && ang < 360) || (ang <= 0 && ang > -360) ) {
-            
-            x = centx + (thisRadius * cos(ang*3.1415926/180));
-            y = centy + (thisRadius * sin(ang*3.1415926/180));
-            
-            if (lastx > -999) {
-                //                if (col == 0) {
-                //                    ofSetColor(225, 88, 52);
-                //                }else if (col == 1){
-                //                    ofSetColor(127, 164, 94);
-                //                }else if (col == 2){
-                //                    ofSetColor(239, 243, 193);
-                //                }
-                //                else{
-                ofSetColor(r+30, g+30, b+30, a);
-                //                }
-                ofSetLineWidth(sw);
-                ofLine(x, y, lastx, lasty);
-                
-            }
-            
-            lastx = x;
-            lasty = y;
-            
-        }else{
-            
-            ofBeginShape();
-            ofSetColor(r+30, g+30, b+30, a);
-            for (float ang=0; ang <= 360; ang++) {
-                
-                noiseVal += 0.05;
-                thisRadius_ = radius_ + (ofNoise(noiseVal)*10)-5;
-                x_ = centx_ + (thisRadius_ * cos(ang * 3.1415926/180));
-                y_ = centy_ + (thisRadius_ * sin(ang * 3.1415926/180));
-                ofCurveVertex(x_, y_);
-                
-            }
-            
-            ofEndShape();
-            reset();
-            
-        }
+    }else{
+        
+        reset();
         
     }
     
@@ -178,9 +192,6 @@ void pen::draw(){
 
 //--------------------------------------------------------------
 void pen::reset(){
-    
-    lastx = -999;
-    lasty = -999;
     
     centx = ofRandom(1440);
     centy = ofRandom(900);
@@ -192,11 +203,9 @@ void pen::reset(){
     }
     
     radiusNoise = ofRandom(10);
-    spiral = ofRandom(-0.5, 0.5);
     waitCnt = ofRandom(0, 100);
     step = 0;
     
-    col = ofRandom(20);
     a = ofRandom(0, 255);
     waiting = ofRandom(0,80);
     

@@ -4,15 +4,15 @@
 //--------------------------------------------------------------------------------------------------------------
 void TestLayer2::setup(){
     
-    fbo.allocate(1990, 950);
-    processFbo.allocate(1990, 950);
+    fbo.allocate(2917, 930);
+    processFbo.allocate(2917, 930);
     
-    image.loadImage("ikuo.jpg");
+    image.loadImage("tohaku.jpg");
     pixels = image.getPixels();
     
     for (int i=0; i<NUM; i++) {
         
-        pos = pens[i].centy * 1990 + pens[i].centx;
+        pos = pens[i].centy * 2917 + pens[i].centx;
         red = pixels[pos *3];
         green = pixels[pos *3 +1];
         blue =  pixels[pos *3 +2];
@@ -22,20 +22,16 @@ void TestLayer2::setup(){
         
     }
     
-    //    alpha = 60;
     end_0 = true;
     end_1 = true;
     
 }
 //--------------------------------------------------------------------------------------------------------------
 void TestLayer2::update(){
-    
-    for (int i=0; i<NUM; i++) {
-        pens[i].update();
-    }
-    //    for (int i=0; i<NUM_E; i++) {
-    //        erasers[i].update();
-    //    }
+
+        for (int i=0; i<NUM; i++) {
+            pens[i].update();
+        }
     
 }
 //--------------------------------------------------------------------------------------------------------------
@@ -58,9 +54,7 @@ void TestLayer2::draw(){
     for (int i=0; i<NUM; i++) {
         pens[i].draw();
     }
-    //    for (int i=0; i<NUM_E; i++) {
-    //        erasers[i].draw();
-    //    }
+
     
     // setting
     if (end_0 == true) {
@@ -123,6 +117,7 @@ void TestLayer2::draw(){
             end_0 = end_1 = true;
         }
     }
+    
     ofSetColor(211, 204, 97, alpha);
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
     
