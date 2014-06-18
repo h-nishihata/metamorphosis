@@ -1,9 +1,9 @@
-#ifndef _OF_PEN
-#define _OF_PEN
+#ifndef _OF_eraser
+#define _OF_eraser
 
 #include "ofMain.h"
 
-class pen{
+class eraser{
     
 public:
     
@@ -34,13 +34,13 @@ public:
     float b;
     bool flag_c;
     int col;
-    float a;
+    int a;
     int waiting;
     int ID;
     
     
     //functions
-    pen();
+    eraser();
     void setup();
     void update();
     void draw();
@@ -50,7 +50,7 @@ public:
     void setG(int green);
     void setB(int blue);
     void setID(int ID);
-
+    
 };
 
 #endif

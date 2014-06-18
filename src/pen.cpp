@@ -5,7 +5,7 @@ pen::pen(){
     centx = ofRandom(1440);
     centy = ofRandom(900);
     radius = ofRandom(0, 200);
-    rotate = ofRandom(-1.5, 1.5);
+    rotate = ofRandom(-0.9, 0.9);
     
     if (rotate == 0) {
         rotate = 1;
@@ -15,8 +15,7 @@ pen::pen(){
     waitCnt = ofRandom(0, 100);
     step = 0;
     
-    sw = ofRandom(5,8);
-    a = ofRandom(0, 255);
+    a = 255;
     waiting = ofRandom(0,80);
     
     speedX = ofRandom(-3,3);
@@ -73,7 +72,7 @@ void pen::update(){
     if(waiting < 80){
         waiting++;
     }else{
-        if(a > 30){ a --; }else{ a = 255;}
+        if(a > 0){ a -= 0.05; }
     }
     
     
@@ -170,22 +169,30 @@ void pen::draw(){
     ofEnableSmoothing();
     ofEnableAlphaBlending();
     
-    
-    float thisRadius = radius + (ofNoise(radiusNoise) * 200) -100;
-    
-    
-    if ((ang >= 0 && ang < 360) || (ang <= 0 && ang > -360) ) {
+    if (step < waitCnt) {
+        step++;
+    }
+    else {
         
-        x = centx + (thisRadius * cos(ang*3.1415926/180));
-        y = centy + (thisRadius * sin(ang*3.1415926/180));
+        float thisRadius = radius + (ofNoise(radiusNoise) * ((r + g + b)/3)) -((r + g + b)/3);
         
-        ofSetColor(r, g, b);
-        ofCircle(x, y, 1);
         
-    }else{
-        
-        reset();
-        
+        if ((ang >= 0 && ang < 360) || (ang <= 0 && ang > -360) || a <= 0) {
+            
+            x = centx + (thisRadius * cos(ang*3.1415926/180));
+            y = centy + (thisRadius * sin(ang*3.1415926/180));
+//            if(ofRandom(100)>50){
+                ofSetColor(r, g, b, a);
+//            }else{
+//                ofSetColor(211, 204, 97, 60);
+//            }
+            ofCircle(x, y, 1);
+            
+        }else{
+            
+            reset();
+            
+        }
     }
     
 }
@@ -206,7 +213,7 @@ void pen::reset(){
     waitCnt = ofRandom(0, 100);
     step = 0;
     
-    a = ofRandom(0, 255);
+    a = 255;
     waiting = ofRandom(0,80);
     
     speedX = ofRandom(-2,2);
