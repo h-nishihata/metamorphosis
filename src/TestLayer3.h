@@ -15,10 +15,10 @@ public:
     void update();
     void draw();
     
-    int r,g,b;
-    bool flag_r;
-    bool flag_g;
-    bool flag_b;
+//    int r,g,b;
+//    bool flag_r;
+//    bool flag_g;
+//    bool flag_b;
   
     float x;
     float y;

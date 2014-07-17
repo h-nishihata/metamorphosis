@@ -2,8 +2,8 @@
 
 pen::pen(){
     
-    centx = ofRandom(1440);
-    centy = ofRandom(900);
+    centx = ofRandom(1920);
+    centy = ofRandom(1200);
     radius = ofRandom(0, 200);
     rotate = ofRandom(-0.9, 0.9);
     
@@ -69,11 +69,11 @@ void pen::update(){
         }
     }
     
-    if(waiting < 80){
-        waiting++;
-    }else{
-        if(a > 0){ a -= 0.05; }
-    }
+//    if(waiting < 80){
+//        waiting++;
+//    }else{
+//        if(a > 0){ a -= 0.05; }
+//    }
     
     
     //  *****   radius    *****
@@ -91,10 +91,10 @@ void pen::update(){
     
     centx += speedX;
     centy += speedY;
-    if (centx >= 1440 || centx <= 0) {
+    if (centx >= 1920 || centx <= 0) {
         centx = ofRandom(1440);
     }
-    if (centy >= 900 || centy <= 0) {
+    if (centy >= 1200 || centy <= 0) {
         centy = ofRandom(900);
     }
     
@@ -182,7 +182,7 @@ void pen::draw(){
             x = centx + (thisRadius * cos(ang*3.1415926/180));
             y = centy + (thisRadius * sin(ang*3.1415926/180));
 //            if(ofRandom(100)>50){
-                ofSetColor(r, g, b, a);
+                ofSetColor(r+20, g+20, b+20, a);
 //            }else{
 //                ofSetColor(211, 204, 97, 60);
 //            }
@@ -200,8 +200,8 @@ void pen::draw(){
 //--------------------------------------------------------------
 void pen::reset(){
     
-    centx = ofRandom(1440);
-    centy = ofRandom(900);
+    centx = ofRandom(1920);
+    centy = ofRandom(1200);
     radius = ofRandom(100);
     rotate = ofRandom(-5, 5);
     
@@ -212,8 +212,8 @@ void pen::reset(){
     radiusNoise = ofRandom(10);
     waitCnt = ofRandom(0, 100);
     step = 0;
-    
-    a = 255;
+//    a = 255;
+
     waiting = ofRandom(0,80);
     
     speedX = ofRandom(-2,2);

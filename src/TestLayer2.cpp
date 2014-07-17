@@ -4,8 +4,8 @@
 //--------------------------------------------------------------------------------------------------------------
 void TestLayer2::setup(){
     
-    fbo.allocate(2917, 930);
-    processFbo.allocate(2917, 930);
+    fbo.allocate(1920, 1200);
+    processFbo.allocate(1920, 1200);
     
     image.loadImage("tohaku.jpg");
     pixels = image.getPixels();
@@ -22,17 +22,26 @@ void TestLayer2::setup(){
         
     }
     
-    //    alpha = 255;
-    end_0 = true;
-    end_1 = true;
+    fbo.begin();
+	ofClear(255,255,255, 0);
+    fbo.end();
+    
+//    alpha = 255;
+//    end_0 = true;
+//    end_1 = true;
     
 }
 //--------------------------------------------------------------------------------------------------------------
 void TestLayer2::update(){
     
+    ofEnableAlphaBlending();
+    
+    fbo.begin();
+//    drawFboTest();
     for (int i=0; i<NUM; i++) {
         pens[i].update();
     }
+    fbo.end();
     
 }
 //--------------------------------------------------------------------------------------------------------------
@@ -40,17 +49,18 @@ void TestLayer2::draw(){
     
     ofTranslate(0, 900);
     ofRotateX(180);
-    
-    
+
+//    ofSetColor(255,255,255);
     
     fbo.begin();
-    ofEnableAlphaBlending();
-    ofBackground(0,0,0,0);
-    processFbo.draw(0, 0);
+    for (int i=0; i<NUM; i++) {
+        pens[i].draw();
+    }
     fbo.end();
     
+    fbo.draw(0,0);
     
-    
+/*
     processFbo.begin();
     for (int i=0; i<NUM; i++) {
         pens[i].draw();
@@ -60,9 +70,9 @@ void TestLayer2::draw(){
     // setting
     if (end_0 == true) {
         waiting_1++;
-        //        if (alpha > 0) {
-        //            alpha-=15;
-        //        }
+        if (alpha > 0) {
+            alpha-=15;
+        }
     }
     
     
@@ -90,9 +100,9 @@ void TestLayer2::draw(){
         }else{
             end_1 = false;
             end_3 = true;
-            //            if (alpha > 1) {
-            //                alpha-=0.1;
-            //            }
+            if (alpha > 1) {
+                alpha-=0.1;
+            }
         }
     }
     
@@ -118,18 +128,33 @@ void TestLayer2::draw(){
         }
     }
     
-//    ofSetColor(211, 204, 97, 0.8);
-//    ofRect(0, 0, ofGetWidth(), ofGetHeight());
+    ofSetColor(211, 204, 97, alpha);
+    ofRect(0, 0, ofGetWidth(), ofGetHeight());
     
     processFbo.end();
-    
-    
-    ofSetHexColor(0xffffff);
-    fbo.draw(0,0);
+*/
     
 }
+
+ //--------------------------------------------------------------
+ void TestLayer2::drawFboTest(){
+     
+     if( ofGetKeyPressed('c') ){
+         ofClear(255,255,255, 0);
+     }
+     fadeAmnt = 40;
+     if(ofGetKeyPressed('1')){
+         fadeAmnt = 1;
+     }
+     
+     ofFill();
+     ofSetColor(255,255,255, fadeAmnt);
+     ofRect(0,0,400,400);
+     
+//     ofFill();
+
+ }
 /*
- 
  //--------------------------------------------------------------------------------------------------------------
  void TestLayer2::fading(int r, int g, int b, int a){
  

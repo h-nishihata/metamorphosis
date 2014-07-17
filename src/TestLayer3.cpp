@@ -8,9 +8,9 @@ void TestLayer3::setup(){
     y = 0;
     speedX = 0.1;
     speedY = 0.1;
-    r = 240;
-    g = 229;
-    b = 171;
+//    r = 240;
+//    g = 229;
+//    b = 171;
     
 }
 //--------------------------------------------------------------------------------------------------------------
@@ -25,6 +25,7 @@ void TestLayer3::update(){
     if (y >= 0 || y <= -50) {
         speedY = speedY*-1;
     }
+    
     /*
      if (flag_r == false) {
      r +=0.1;
@@ -70,7 +71,7 @@ void TestLayer3::draw(){
     ofEnableAlphaBlending();
     ofBackground(255,255,255,0);
     
-    ofSetColor(245,229,171);
-    img.draw(x, y, 2832, 900);
+//    ofSetColor(245,229,171);
+    img.draw(x, y, 2832 * 1.29, 1200);
     
 }
