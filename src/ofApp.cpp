@@ -3,24 +3,37 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    ofEnableAlphaBlending();
-    ofSetVerticalSync(true);
-    ofBackground(255);
-    ofSetFrameRate(8);
-    mng.setup(1920,1200);
+    ofBackground(0,0,0);
+	ofSetFrameRate(60);
     
-    layer1 = mng.createLayer<TestLayer1>();
-    layer2 = mng.createLayer<TestLayer2>();
-    layer3 = mng.createLayer<TestLayer3>();
+    img.loadImage("tohaku.jpg");
+	
+	rgbaFbo.allocate(1920, 1200, GL_RGBA);
     
-    layer1->setVisible(true);
-    layer1->setAlpha(255);
+    rgbaFbo.begin();
+	ofClear(255,255,255, 0);
+    rgbaFbo.end();
     
-    layer2->setVisible(true);
-    layer2->setAlpha(255);
+    pixels = img.getPixels();
     
-    layer3->setVisible(true);
-    layer3->setAlpha(255);
+    for (int i=0; i<NUM; i++) {
+        
+        pos = pens[i].centy * 2917 + pens[i].centx;
+        red = pixels[pos *3];
+        green = pixels[pos *3 +1];
+        blue =  pixels[pos *3 +2];
+        pens[i].setR(red);
+        pens[i].setG(green);
+        pens[i].setB(blue);
+        pens[i].setID(i);
+        
+    }
+    
+    fadeAmnt = 255;
+    
+    x = -200;
+    speedX = 0.1;
+    speedY = 0.1;
     
     ofHideCursor();
     
@@ -29,59 +42,94 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    mng.update();
+    if (startDraw<20) {
+        startDraw++;
+    }
+    
+    ofEnableAlphaBlending();
+	
+    rgbaFbo.begin();
+    drawFboTest();
+    for (int i=0; i<NUM; i++) {
+        pens[i].update();
+    }
+    rgbaFbo.end();
+    
+    x += speedX;
+    
+    if (x >= 0 || x <= -550) {
+        speedX = speedX*-1;
+    }
+	
+}
+
+//--------------------------------------------------------------
+void ofApp::drawFboTest(){
+    
+	if(startDraw > 10){
+		fadeAmnt = 2;
+	}
+	
+    ofFill();
+	ofSetColor(255,255,255, fadeAmnt);
+//  ofRect(0,0,ofGetWidth(),ofGetHeight());
+    
+    for (int i=0; i<NUM; i++) {
+        pens[i].draw();
+    }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	
+    ofSetColor(255,255,255);
+    img.draw(x, y, 2832 * 1.29, 1200);
+    rgbaFbo.draw(0,0);
     
-    ofEnableAlphaBlending();
-    mng.draw();
-    // add something...
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-    
+	
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y){
-    
+void ofApp::mouseMoved(int x, int y ){
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-    
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-    
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg){
-    
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){
-    
+	
 }

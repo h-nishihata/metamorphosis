@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0881A2BE-1F1F-4B29-8350-F91856A5C150</string>
+	<string>A4B03C61-1EAB-45B8-9F6D-38A32C5D252F</string>
 	<key>IDESourceControlProjectName</key>
-	<string>metamorphosis_01</string>
+	<string>Metamorphosis_01</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>2409167D-A98E-4139-A176-9A75C7AC8732</key>
-		<string>https://github.com/h-nishihata/metamorphosis_01</string>
+		<key>FC1A0E49-B9B7-4577-B611-9A86240A2DA0</key>
+		<string>https://github.com/h-nishihata/metamorphosis_05</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>metamorphosis_01.xcodeproj/project.xcworkspace</string>
+	<string>Metamorphosis_01.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>2409167D-A98E-4139-A176-9A75C7AC8732</key>
+		<key>FC1A0E49-B9B7-4577-B611-9A86240A2DA0</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/h-nishihata/metamorphosis_01</string>
+	<string>https://github.com/h-nishihata/metamorphosis_05</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>2409167D-A98E-4139-A176-9A75C7AC8732</string>
+	<string>FC1A0E49-B9B7-4577-B611-9A86240A2DA0</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>2409167D-A98E-4139-A176-9A75C7AC8732</string>
+			<string>FC1A0E49-B9B7-4577-B611-9A86240A2DA0</string>
 			<key>IDESourceControlWCCName</key>
-			<string>metamorphosis_01</string>
+			<string>metamorphosis_05 のコピー</string>
 		</dict>
 	</array>
 </dict>

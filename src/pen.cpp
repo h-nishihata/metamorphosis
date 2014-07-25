@@ -15,6 +15,11 @@ pen::pen(){
     waitCnt = ofRandom(0, 100);
     step = 0;
     
+    if(ofRandom(100) > 80){
+        setEraser = true;
+    }else{
+        setEraser = false;
+    }
     a = 255;
     waiting = ofRandom(0,80);
     
@@ -52,29 +57,29 @@ void pen::setID(int identify){
 void pen::update(){
     
     //  *****   color    *****
-    
+
     if (flag_c == false) {
         r += 0.1;
         g += 0.1;
         b += 0.1;
-        if (r >= 255 || g >= 255 || b >= 255) {
+        if (r >= 200 || g >= 200 || b >= 200) {
             flag_c = true;
         }
     }else if(flag_c == true){
         r -= 0.1;
         g -= 0.1;
         b -= 0.1;
-        if (r <= 0 || g <= 0 || b <= 0) {
+        if (r <= 50 || g <= 50 || b <= 50) {
             flag_c = false;
         }
     }
     
-//    if(waiting < 80){
-//        waiting++;
-//    }else{
-//        if(a > 0){ a -= 0.05; }
-//    }
-    
+    if(waiting < 80){
+        waiting++;
+    }else{
+        if(a > 0){ a -= 0.1; }else{ a = 255; }
+    }
+ 
     
     //  *****   radius    *****
     
@@ -92,10 +97,10 @@ void pen::update(){
     centx += speedX;
     centy += speedY;
     if (centx >= 1920 || centx <= 0) {
-        centx = ofRandom(1440);
+        centx = ofRandom(1920);
     }
     if (centy >= 1200 || centy <= 0) {
-        centy = ofRandom(900);
+        centy = ofRandom(1200);
     }
     
     float ax = 0.0;
@@ -148,11 +153,6 @@ void pen::update(){
     speedX *= 0.95;
     speedY *= 0.95;
     
-    if (speedX == speedY) {
-        speedX += ofRandom(-0.1, 0.1);
-        speedY += ofRandom(-0.1, 0.1);
-    }
-    
     if (speedX == 0) {
         speedX = ofRandom(-0.1, 0.1);
     }
@@ -173,25 +173,25 @@ void pen::draw(){
         step++;
     }
     else {
-        
+
         float thisRadius = radius + (ofNoise(radiusNoise) * ((r + g + b)/3)) -((r + g + b)/3);
         
         
-        if ((ang >= 0 && ang < 360) || (ang <= 0 && ang > -360) || a <= 0) {
-            
+        if ((ang >= 0 && ang < 360*4) || (ang <= 0 && ang > -360*4) || a <= 0) {
+    
             x = centx + (thisRadius * cos(ang*3.1415926/180));
             y = centy + (thisRadius * sin(ang*3.1415926/180));
-//            if(ofRandom(100)>50){
-                ofSetColor(r+20, g+20, b+20, a);
-//            }else{
-//                ofSetColor(211, 204, 97, 60);
-//            }
+            if(setEraser){
+                ofSetColor(200, 200, 100, 1);
+            }else{
+                ofSetColor(r, g, b, a);
+            }
             ofCircle(x, y, 1);
             
         }else{
-            
+    
             reset();
-            
+
         }
     }
     
@@ -212,7 +212,7 @@ void pen::reset(){
     radiusNoise = ofRandom(10);
     waitCnt = ofRandom(0, 100);
     step = 0;
-//    a = 255;
+    a = 255;
 
     waiting = ofRandom(0,80);
     

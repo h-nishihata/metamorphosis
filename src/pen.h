@@ -28,7 +28,7 @@ public:
     
     
     //colors
-    int sw;
+    bool setEraser;
     float r;
     float g;
     float b;
