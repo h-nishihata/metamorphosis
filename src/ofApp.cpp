@@ -4,24 +4,24 @@
 void ofApp::setup(){
     
     ofBackground(0,0,0);
-	ofSetFrameRate(60);
+    ofSetFrameRate(12);
     
-    img.loadImage("tohaku.jpg");
-	
-	rgbaFbo.allocate(1920, 1200, GL_RGBA);
+    img.loadImage("eitoku.TIF");
+    
+    rgbaFbo.allocate(1920, 1200, GL_RGBA);
     
     rgbaFbo.begin();
-	ofClear(255,255,255, 0);
+    ofClear(255,255,255, 0);
     rgbaFbo.end();
     
     pixels = img.getPixels();
     
     for (int i=0; i<NUM; i++) {
         
-        pos = pens[i].centy * 2917 + pens[i].centx;
+        pos = pens[i].centy * 4892 + pens[i].centx;
         red = pixels[pos *3];
         green = pixels[pos *3 +1];
-        blue =  pixels[pos *3 +2];
+        blue = pixels[pos *3 +2];
         pens[i].setR(red);
         pens[i].setG(green);
         pens[i].setB(blue);
@@ -32,10 +32,9 @@ void ofApp::setup(){
     fadeAmnt = 255;
     
     x = -200;
+    y = -200;
     speedX = 0.1;
     speedY = 0.1;
-    
-    ofHideCursor();
     
 }
 
@@ -47,7 +46,7 @@ void ofApp::update(){
     }
     
     ofEnableAlphaBlending();
-	
+    
     rgbaFbo.begin();
     drawFboTest();
     for (int i=0; i<NUM; i++) {
@@ -56,23 +55,27 @@ void ofApp::update(){
     rgbaFbo.end();
     
     x += speedX;
+    y += speedY;
     
-    if (x >= 0 || x <= -550) {
+    if (x >= 0 || x <= -526) {
         speedX = speedX*-1;
     }
-	
+    if (y >= 0 || y <= -534.5) {
+        speedY = speedY*-1;
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::drawFboTest(){
     
-	if(startDraw > 10){
-		fadeAmnt = 2;
-	}
-	
+    if(startDraw > 10){
+        fadeAmnt = 2;
+    }
+    
     ofFill();
-	ofSetColor(255,255,255, fadeAmnt);
-//  ofRect(0,0,ofGetWidth(),ofGetHeight());
+    ofSetColor(255,255,255, fadeAmnt);
+    //  ofRect(0,0,ofGetWidth(),ofGetHeight());
     
     for (int i=0; i<NUM; i++) {
         pens[i].draw();
@@ -82,54 +85,56 @@ void ofApp::drawFboTest(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	
+    
+    ofHideCursor();
+    
     ofSetColor(255,255,255);
-    img.draw(x, y, 2832 * 1.29, 1200);
+    img.draw(x, y, img.width/2, img.height/2);
     rgbaFbo.draw(0,0);
     
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){
-	
+    
 }

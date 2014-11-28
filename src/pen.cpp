@@ -15,7 +15,7 @@ pen::pen(){
     waitCnt = ofRandom(0, 100);
     step = 0;
     
-    if(ofRandom(100) > 80){
+    if(ofRandom(100) > 95){
         setEraser = true;
     }else{
         setEraser = false;
@@ -77,7 +77,7 @@ void pen::update(){
     if(waiting < 80){
         waiting++;
     }else{
-        if(a > 0){ a -= 0.1; }else{ a = 255; }
+        if(a > 30){ a -= 0.1; }else{ a = 255; }
     }
  
     
@@ -107,7 +107,7 @@ void pen::update(){
     float ay = 0.0;
     int lencon = ofRandom(50)+10;
     
-    for (int n=0; n<10; n++) {
+    for (int n=0; n<100; n++) {
         
         float ddx = this[n].centx-centx;
         float ddy = this[n].centy-centy;

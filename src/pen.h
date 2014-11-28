@@ -29,13 +29,14 @@ public:
     
     //colors
     bool setEraser;
+    bool flag_c;
     float r;
     float g;
     float b;
-    bool flag_c;
-    int col;
-    float a;
+
     int waiting;
+    float a;
+
     int ID;
     
     
